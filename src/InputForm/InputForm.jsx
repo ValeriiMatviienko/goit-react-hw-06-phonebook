@@ -19,9 +19,19 @@ class InputForm extends Component {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = event => {
-    event.preventDefault();
-    this.props.onSubmit(this.state);
+  handleSubmit = e => {
+    e.preventDefault();
+    const { name } = this.state;
+    const { contacts, onSubmit } = this.props;
+    const sameContact = contacts.some(
+      item => item.name.toLowerCase() === name.toLowerCase(),
+    );
+    if (sameContact) {
+      alert(`${name} Already exists!!!`);
+      this.reset();
+      return;
+    }
+    onSubmit(this.state);
     this.reset();
   };
 
