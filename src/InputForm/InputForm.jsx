@@ -21,13 +21,13 @@ class InputForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { name } = this.state;
-    const { contacts, onSubmit, number } = this.props;
+    const { name, number } = this.state;
+    const { contacts, onSubmit } = this.props;
     const sameContact = contacts.some(
       item => item.name.toLowerCase() === name.toLowerCase(),
     );
     const validNumber = number => {
-      return !/\d{3}[-]\d{2}[-]\d{2}/g.test(number);
+      return !/^\d[\d\(\)\ -]{4,14}\d$/.test(number);
     };
 
     if (sameContact) {
@@ -38,7 +38,7 @@ class InputForm extends Component {
 
     if (validNumber(number)) {
       alert('Enter the correct number phone!');
-      this.reset();
+
       return;
     }
 
